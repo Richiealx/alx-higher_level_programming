@@ -1,16 +1,19 @@
 #!/usr/bin/python3
-from sys import argv
-from calculator_1 import add, sub, mul, div
 
-if (__name__ == "__main__"):
-    argc = len(argv)
-    result = 0
-    operators = ["+", "-", "*", "/"]
+if __name__ == "__main__":
+    """Handle basic arithmetic operations."""
+    from calculator_1 import add, sub, mul, div
+    import sys
 
-    if (argc != 4):
-        print(f"Usage: {argv[0]} <a> <operator> <b>")
-        exit(1)
+    if len(sys.argv) - 1 != 3:
+        print("Usage: ./100-my_calculator.py <a> <operator> <b>")
+        sys.exit(1)
 
-    if (argv[2] not in operators):
+    ops = {"+": add, "-": sub, "*": mul, "/": div}
+    if sys.argv[2] not in list(ops.keys()):
         print("Unknown operator. Available operators: +, -, * and /")
-        exit(1)
+        sys.exit(1)
+
+    a = int(sys.argv[1])
+    b = int(sys.argv[3])
+    print("{} {} {} = {}".format(a, sys.argv[2], b, ops[sys.argv[2]](a, b)))
